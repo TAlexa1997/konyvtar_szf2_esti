@@ -20,16 +20,22 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            //'admin': admin, 'user': user
             $table->string('permission')->default('user');
             $table->rememberToken();
             $table->timestamps();
         });
 
         User::create([
+            'name' => 'Admin', 
+            'email' => 'admin@gmail.com', 
+            'password' => Hash::make('abrakadabra'),
+            'permission' => 'admin']);
+
+        User::create([
             'name' => 'Dóri', 
             'email' => 'dori@gmail.com', 
-            'password' => Hash::make('blabla'),
-            'permission' =>'admin']);
+            'password' => Hash::make('blabla')]);
 
         User::create([
             'name' => 'Alexa', 
