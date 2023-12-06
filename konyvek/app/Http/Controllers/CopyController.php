@@ -35,9 +35,9 @@ class CopyController extends Controller
         $copy->status = $request->status;
         $copy->save();
     }
-    public function destroy(Copy $copy)
+    public function destroy($id)
     {
         //find helyett a paraméter
-        $copy->delete();
+        Copy::find($id)->delete();
     }
 }

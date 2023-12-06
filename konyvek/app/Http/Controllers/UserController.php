@@ -38,9 +38,9 @@ class UserController extends Controller
         $user->permission = $request->permission;
         $user->save();
     }
-    public function destroy(User $user)
+    public function destroy($id)
     {
         //find helyett a paraméter
-        $user->delete();
+        User::find($id)->delete();
     }
 }
