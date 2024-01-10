@@ -37,7 +37,6 @@ class CopyController extends Controller
     }
     public function destroy($id)
     {
-        //find helyett a paraméter
-        Copy::find($id)->delete();
+        Copy::findOrFail($id)->delete();
     }
 }
