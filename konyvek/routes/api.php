@@ -3,6 +3,7 @@
 use App\Http\Controllers\CopyController;
 use App\Http\Controllers\LendingController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BookController;
 use App\Models\Book;
 use App\Models\Copy;
 use Illuminate\Http\Request;
@@ -32,3 +33,7 @@ Route::get('/lendings/{user_id}/{copy_id}/{start}', [LendingController::class, '
 Route::put('/lendings/{user_id}/{copy_id}/{start}', [LendingController::class, 'update']);
 Route::post('/lendings', [LendingController::class, 'store']);
 Route::delete('/lendings/{user_id}/{copy_id}/{start}', [LendingController::class, 'destroy']);
+
+Route::middleware('auth.basic')->group(function () {
+    Route::apiResource('/users', UserController::class);
+});
