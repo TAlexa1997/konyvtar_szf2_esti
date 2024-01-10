@@ -4,7 +4,6 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CopyController;
 use App\Http\Controllers\LendingController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\BookController;
 use App\Models\Book;
 use App\Models\Copy;
 use Illuminate\Http\Request;
