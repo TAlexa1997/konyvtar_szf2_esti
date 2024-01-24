@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Copy;
 use App\Models\Lending;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LendingController extends Controller
 {
@@ -37,4 +39,36 @@ class LendingController extends Controller
         ->where('copy_id',$copy_id)
         ->where('start',$start)->delete();
     }
+
+    public function allLendingUserCopy()
+    {
+        $copies = Lending::with(['copies', 'users']) //a függvény neve a modellben
+            ->get();
+
+        return $copies;
+    }
+
+    public function allLendingBookCopy()
+    {
+        $books = Lending::with(['copies', 'books']) // modellben lévő függvény neve
+            ->get();
+
+        return $books;
+    }
+
+    public function lendingsOnDate($myDate){
+        
+        $taskRanges = Lending::with('books') // modellben lévő függvény neve
+        ->where('start', $myDate)
+        ->get();
+        return $taskRanges;
+    }
+
+    public function coppiesOnDate($copyid) {
+        $name = Lending::with('copies') // modellben lévő függvény neve
+        ->where('copy_id', $copyid)
+        ->get();
+        return $name;
+    }
+
 }

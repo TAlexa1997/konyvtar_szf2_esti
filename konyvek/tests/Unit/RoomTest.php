@@ -12,7 +12,7 @@ class RoomTest extends TestCase
      */
     public function test_example(): void
     {
-        $people = new Room(['Zsolt','Dóra']);
+        $people = new Room(['Alexa','Dóra']);
         $this->assertTrue($people->has('Dóra'));
     }
 }

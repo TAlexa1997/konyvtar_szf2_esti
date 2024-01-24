@@ -4,8 +4,6 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CopyController;
 use App\Http\Controllers\LendingController;
 use App\Http\Controllers\UserController;
-use App\Models\Book;
-use App\Models\Copy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,4 +34,10 @@ Route::delete('/lendings/{user_id}/{copy_id}/{start}', [LendingController::class
 
 Route::middleware('auth.basic')->group(function () {
     Route::apiResource('/users', UserController::class);
+    //Lekérdezések
+    Route::get('/lending_by_user', [UserController::class,'lendingByUser']);
+    Route::get('/all_lending', [LendingController::class, 'allLendingUserCopy']);
+    Route::get('/book_lending', [LendingController::class, 'allLendingBookCopy']);
+    Route::get('/where_lending/{myDate}', [LendingController::class, 'lendingsOnDate']);
+    Route::get('/copies_lending/{copyid}', [LendingController::class, 'coppiesOnDate']);
 });
