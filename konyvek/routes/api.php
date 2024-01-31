@@ -22,7 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('/users', UserController::class);
+//Route::apiResource('/users', UserController::class);
+Route::middleware( ['admin'])->group(function () {
+    //admin útvonalai itt lesznek, pl.
+                Route::apiResource('/users', UserController::class);
+                });
 Route::apiResource('/copies', CopyController::class);
 Route::apiResource('/books', BookController::class);
 
