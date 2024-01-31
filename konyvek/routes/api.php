@@ -23,10 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //Route::apiResource('/users', UserController::class);
-Route::middleware( ['admin'])->group(function () {
-    //admin útvonalai itt lesznek, pl.
-                Route::apiResource('/users', UserController::class);
-                });
+
 Route::apiResource('/copies', CopyController::class);
 Route::apiResource('/books', BookController::class);
 
@@ -37,7 +34,10 @@ Route::post('/lendings', [LendingController::class, 'store']);
 Route::delete('/lendings/{user_id}/{copy_id}/{start}', [LendingController::class, 'destroy']);
 
 Route::middleware('auth.basic')->group(function () {
-    Route::apiResource('/users', UserController::class);
+    Route::middleware( ['admin'])->group(function () {
+        //admin útvonalai itt lesznek, pl.
+                    Route::apiResource('/users', UserController::class);
+                    });
     //Lekérdezések with
     Route::get('/lending_by_user', [UserController::class,'lendingByUser']);
     Route::get('/all_lending', [LendingController::class, 'allLendingUserCopy']);
