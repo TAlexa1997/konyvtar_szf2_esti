@@ -6,6 +6,7 @@ use App\Models\Copy;
 use App\Models\Lending;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LendingController extends Controller
 {
@@ -70,5 +71,8 @@ class LendingController extends Controller
         ->get();
         return $name;
     }
+
+ 
+   
 
 }

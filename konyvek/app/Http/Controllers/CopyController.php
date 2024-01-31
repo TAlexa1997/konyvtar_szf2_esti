@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Copy;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 class CopyController extends Controller
 {
@@ -39,4 +39,24 @@ class CopyController extends Controller
     {
         Copy::findOrFail($id)->delete();
     }
+   //Add meg a keménykötésű példányokat szerzővel és címmel!
+   // (ha megy, akkor a bármilyet tudj megadni paraméterrel; kemény: 1, puha: 0, hardcovered a mező)
+    public function hAuthorTitle(){
+        $books = DB::table('copies as c')	//egy tábla lehet csak
+	  //->select('mezo_neve')		//itt nem szükséges
+        ->join('books as b' ,'c.book_id','=','b.book_id') //kapcsolat leírása, akár több join is lehet
+        ->where('hardcovered',1)
+        ->get();				//esetleges aggregálás; ha select, akkor get() a vége
+        return $books;
+    }
+
+    //Bizonyos évben kiadott példányok névvel és címmel kiíratása.
+    public function ev($year){
+        $copies = Copy::whereYear('publication',$year)	//egy tábla lehet csak
+        ->join('books' ,'copies.book_id','=','books.book_id') //kapcsolat leírása, akár több join is lehet
+        ->select('copies.copy_id','books.author','books.title')
+        ->get();				//esetleges aggregálás; ha select, akkor get() a vége
+        return response()->json($copies);;
+    }
+
 }
